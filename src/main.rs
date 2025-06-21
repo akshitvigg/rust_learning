@@ -4,7 +4,8 @@ use rand::Rng;
 fn main(){
     println!("Welcome the Guessing Game!");
 
-    let secret_num = rand::thread_rng().gen_range(1..=100); 
+    let _secret_key = rand::thread_rng().gen_range(1..=100);
+    println!("the secret key is {}", _secret_key);
 
     println!("Enter the value");
 
