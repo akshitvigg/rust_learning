@@ -1,38 +1,21 @@
-use std::io;
-use rand::Rng;
-use std::cmp::Ordering;
-fn  main() {
-    
-    println!("Welcome to the guessing game");
-    
-    let _secret_key = rand::thread_rng().gen_range(1..=100);
+use std::io::{self, Read};
+use crossterm::terminal::enable_raw_mode;
+use crossterm::terminal::disable_raw_mode;
 
-    loop {
-        println!("enter your guess");
-        let mut _guess = String::new();
-
-        io::stdin().read_line(&mut _guess)
-                    .expect("Failed to read line");
-
-        let _guess : u32 = match _guess.trim().parse() {
-            Ok(num) => num,
-            Err(_)=> continue,
-            
-        };
-
-        println!("you guessed {}", _guess);
-
-        match _guess.cmp(&_secret_key) {
-            Ordering::Less => println!("Too small!"),
-            Ordering::Greater => println!("Too big"),
-            Ordering::Equal => {
-                println!("Yatta u guessed it right");
-                break;
-            }
-            
+fn main (){
+    enable_raw_mode().unwrap();
+    for b in io::stdin().bytes() {
+        let b = b.unwrap();
+        let c = b as char;
+        if c.is_control(){
+            println!("Binary: {0:08b} ASCII: {0:#03} \r",b);
+        }else {
+            println!("Binary: {0:08b} ASCII: {0:#03} Character: {1:#?}\r", b, c)
+        }
+        if c == 'q'{
+            disable_raw_mode().unwrap();
+            break;
         }
     }
 
-
-    
 }
