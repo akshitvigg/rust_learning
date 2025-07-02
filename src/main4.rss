@@ -1,0 +1,20 @@
+use chrono::{Utc,Local};
+use dotenv::dotenv;
+use std::env;
+
+fn main() {
+    dotenv().ok();
+
+    let utc = Utc::now();
+    let local_time = Local::now();
+    
+    let api_key = env::var("API");
+
+    // let api = api_key.unwrap();
+
+    // print!("{}",api);
+    match api_key  {
+        Ok(str)=> println!("{}, utc = {}, local_time= {}",str,utc,local_time),
+        Err(_e)=> println!("error while accessing the api_key")
+    }
+}
