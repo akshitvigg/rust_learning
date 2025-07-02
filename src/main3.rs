@@ -44,7 +44,7 @@ impl Shape for Rect {
 }
 impl Perimeter for Rect {
     fn perimeter(&self)->f32 {
-        return  2.0 * (self.width * self.height);
+        return  2.0 * (self.width + self.height);
     }
 }
 
